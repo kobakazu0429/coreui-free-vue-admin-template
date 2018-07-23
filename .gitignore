@@ -1,3 +1,4 @@
+# Frontend
 .DS_Store
 node_modules
 package-lock.json
@@ -23,3 +24,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+# ===================================
+
+# Backend
+map_api/
+
+# ===================================
