@@ -1,13 +1,63 @@
 export default {
   items: [
     {
+      title: true,
+      name: 'General',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'Layers',
+      url: '/theme/colors',
+      icon: 'icon-layers'
+    },
+    {
+      title: true,
+      name: 'Settings',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'Types',
+      url: '/theme/colors',
+      icon: 'icon-settings'
+    },
+    {
+      name: 'Groups',
+      url: '/theme/colors',
+      icon: 'icon-settings'
+    },
+    {
+      name: 'Categories',
+      url: '/theme/colors',
+      icon: 'icon-settings'
+    },
+    {
+      name: 'Formats',
+      url: '/theme/colors',
+      icon: 'icon-settings'
+    },
+    {
+      name: 'Attributions',
+      url: '/theme/colors',
+      icon: 'icon-settings'
+    },
+    {
+      name: 'Projections',
+      url: '/theme/colors',
+      icon: 'icon-settings'
+    },
+    // add -------------------------------------------------------
+    {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'primary',
-        text: 'NEW'
-      }
+      icon: 'icon-speedometer'
     },
     {
       title: true,
@@ -216,11 +266,7 @@ export default {
     {
       name: 'Widgets',
       url: '/widgets',
-      icon: 'icon-calculator',
-      badge: {
-        variant: 'primary',
-        text: 'NEW'
-      }
+      icon: 'icon-calculator'
     },
     {
       divider: true
@@ -270,4 +316,4 @@ export default {
       variant: 'danger'
     }
   ]
-}
+};
