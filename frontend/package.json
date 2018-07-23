@@ -1,17 +1,11 @@
 {
-  "name": "@coreui/coreui-free-vue-admin-template",
-  "version": "2.0.0-beta.6",
-  "description": "Open Source Bootstrap Admin Template",
-  "author": "Łukasz Holeczek",
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2018 creativeLabs Łukasz Holeczek",
+  "name": "kure_kosen_map_api",
+  "author": "kobakazu0429",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@coreui/coreui": "^2.0.4",
