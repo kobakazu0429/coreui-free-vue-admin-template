@@ -6,7 +6,7 @@ from flask import Flask, jsonify, make_response
 from flask_cors import CORS
 
 from backend.config import settings
-from backend.flask.return_foreign import *
+from backend.flask.return_foreigns import *
 
 api = Flask(__name__)
 CORS(api)
