@@ -4,12 +4,12 @@ sys.path.append("..")
 from peewee import *
 from backend.config import settings
 
-from Type import *
-from Group import *
-from Category import *
-from Format import *
-from Attribute import *
-from Layer import *
+from backend.models.Type import *
+from backend.models.Group import *
+from backend.models.Category import *
+from backend.models.Format import *
+from backend.models.Attribute import *
+from backend.models.Layer import *
 
 db = settings.DB
 

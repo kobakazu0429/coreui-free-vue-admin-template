@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from BaseModel import *
+from backend.models.BaseModel import *
 
-from Type import *
-from Group import *
-from Category import *
-from Format import *
-from Attribute import *
+from backend.models.Type import *
+from backend.models.Group import *
+from backend.models.Category import *
+from backend.models.Format import *
+from backend.models.Attribute import *
 
 
 class Layer(BaseModel):
@@ -16,3 +16,7 @@ class Layer(BaseModel):
     url = url = CharField(null=False, max_length=255)
     format_id = ForeignKeyField(Format)
     attribute_id = ForeignKeyField(Attribute)
+    description = TextField()
+
+    class Meta:
+        db_table = 'layers'
