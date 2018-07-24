@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, make_response
+from flask import jsonify
 
 from backend.models.Type import *
 from backend.models.Group import *
