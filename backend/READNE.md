@@ -21,6 +21,16 @@ $ source map_api/bin/activate
 $ pip install -r requirements.txt
 ```
 
+## Databases
+
+```sql
+-- Create
+CREATE DATABASE kure_kosen_map_api CHARACTER SET utf8mb4;
+
+-- Drop
+DROP DATABASE kure_kosen_map_api;
+```
+
 ## Virtualenv
 
 ### Create
