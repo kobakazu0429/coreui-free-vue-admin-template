@@ -6,7 +6,7 @@ from flask import Flask, jsonify, make_response
 from flask_cors import CORS
 
 from backend.config import settings
-from backend.flask.foreign import *
+from backend.flask.return_foreign import *
 
 api = Flask(__name__)
 CORS(api)
@@ -34,16 +34,8 @@ def after_request_handler(exc):
 # return foreigns
 @api.route('/api/<string:foreign>', methods=['GET'])
 def swictherReturn(foreign):
-    if (foreign == 'types'):
-        return make_response(retuenType())
-    elif (foreign == 'groups'):
-        return make_response(retuenGroup())
-    elif (foreign == 'categories'):
-        return make_response(retuenCategory())
-    elif (foreign == 'formats'):
-        return make_response(retuenFormat())
-    elif (foreign == 'attributes'):
-        return make_response(retuenAttribute())
+    if foreign in ['types', 'groups', 'categories', 'formats', 'attributes']:
+        return make_response(returnForeign(foreign))
     else:
         return make_response(jsonify({'error': 'not exist this table [%s]' % foreign}), 404)
 

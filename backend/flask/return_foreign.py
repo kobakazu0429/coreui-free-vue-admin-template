@@ -8,36 +8,23 @@ from backend.models.Format import *
 from backend.models.Attribute import *
 
 
-def retuenType():
+def returnForeign(foreign):
+    if (foreign == 'types'):
+        this_class = Type()
+    elif (foreign == 'groups'):
+        this_class = Group()
+    elif (foreign == 'categories'):
+        this_class = Category()
+    elif (foreign == 'formats'):
+        this_class = Format()
+    elif (foreign == 'attributes'):
+        this_class = Attribute()
+    else:
+        return
+
     data = []
-    for x in Type.select().dicts().order_by(Type.id.asc()):
+
+    for x in this_class.select().order_by(this_class.id).dicts():
         data.append(x)
-    return jsonify(data)
 
-
-def retuenGroup():
-    data = []
-    for x in Group.select().dicts().order_by(Group.id.asc()):
-        data.append(x)
-    return jsonify(data)
-
-
-def retuenCategory():
-    data = []
-    for x in Category.select().dicts().order_by(Category.id.asc()):
-        data.append(x)
-    return jsonify(data)
-
-
-def retuenFormat():
-    data = []
-    for x in Format.select().dicts().order_by(Format.id.asc()):
-        data.append(x)
-    return jsonify(data)
-
-
-def retuenAttribute():
-    data = []
-    for x in Attribute.select().dicts().order_by(Attribute.id.asc()):
-        data.append(x)
     return jsonify(data)
