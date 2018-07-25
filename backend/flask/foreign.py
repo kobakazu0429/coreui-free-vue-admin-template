@@ -8,7 +8,7 @@ from backend.models.Format import *
 from backend.models.Attribute import *
 
 
-def returnForeign(foreign):
+def get_foreign(foreign):
     if (foreign == 'types'):
         this_class = Type()
     elif (foreign == 'groups'):

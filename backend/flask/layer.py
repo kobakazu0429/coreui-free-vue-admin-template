@@ -9,7 +9,7 @@ from backend.models.Attribute import *
 from backend.models.Layer import *
 
 
-def returnLayer(layer_id):
+def get_layer(layer_id):
     data = []
 
     where_cond = None

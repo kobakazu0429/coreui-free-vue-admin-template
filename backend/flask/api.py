@@ -6,8 +6,8 @@ from flask import Flask, jsonify, make_response
 from flask_cors import CORS
 
 from backend.config import settings
-from backend.flask.get.foreign import *
-from backend.flask.get.layer import *
+from backend.flask.foreign import *
+from backend.flask.layer import *
 
 from backend.flask.utils.error_msg import *
 
@@ -38,7 +38,7 @@ def after_request_handler(exc):
 @api.route('/api/<string:foreign>', methods=['GET'])
 def swictherReturn(foreign):
     if foreign in ['types', 'groups', 'categories', 'formats', 'attributes']:
-        return make_response(returnForeign(foreign))
+        return make_response(get_foreign(foreign))
     else:
         return returnErrorTable(foreign)
 
@@ -47,7 +47,7 @@ def swictherReturn(foreign):
 @api.route('/api/layer/', defaults={'id': None}, methods=['GET'])
 @api.route('/api/layer/<int:id>', methods=['GET'])
 def returnLayerFunc(id):
-    return make_response(returnLayer(id))
+    return make_response(get_layer(id))
 
 
 if __name__ == '__main__':
