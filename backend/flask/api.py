@@ -6,8 +6,8 @@ from flask import Flask, jsonify, make_response
 from flask_cors import CORS
 
 from backend.config import settings
-from backend.flask.get.foreigns import *
-from backend.flask.get.layers import *
+from backend.flask.get.foreign import *
+from backend.flask.get.layer import *
 
 api = Flask(__name__)
 CORS(api)
@@ -32,7 +32,7 @@ def after_request_handler(exc):
         db.close()
 
 
-# return foreigns
+# GET: foreign
 @api.route('/api/<string:foreign>', methods=['GET'])
 def swictherReturn(foreign):
     if foreign in ['types', 'groups', 'categories', 'formats', 'attributes']:
@@ -41,7 +41,7 @@ def swictherReturn(foreign):
         return make_response(jsonify({'error': 'not exist this table [%s]' % foreign}), 404)
 
 
-# return layers
+# GET: layer
 @api.route('/api/layer/', defaults={'id': None}, methods=['GET'])
 @api.route('/api/layer/<int:id>', methods=['GET'])
 def returnLayerFunc(id):
