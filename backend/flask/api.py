@@ -9,6 +9,8 @@ from backend.config import settings
 from backend.flask.get.foreign import *
 from backend.flask.get.layer import *
 
+from backend.flask.utils.error_msg import *
+
 api = Flask(__name__)
 CORS(api)
 
@@ -16,7 +18,7 @@ CORS(api)
 # 404の時は以下を返す
 @api.errorhandler(404)
 def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
+    return returnError404()
 
 
 # 処理する前にdbへ接続する
@@ -38,7 +40,7 @@ def swictherReturn(foreign):
     if foreign in ['types', 'groups', 'categories', 'formats', 'attributes']:
         return make_response(returnForeign(foreign))
     else:
-        return make_response(jsonify({'error': 'not exist this table [%s]' % foreign}), 404)
+        return returnErrorTable(foreign)
 
 
 # GET: layer
