@@ -8,3 +8,7 @@ def returnError404():
 
 def returnErrorTable(table):
     return make_response(jsonify({'error': 'not exist this table [%s]' % table}), 404)
+
+
+def returnResultCreate():
+    return make_response(jsonify({'result': 'Created'}), 200)

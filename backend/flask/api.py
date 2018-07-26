@@ -9,7 +9,7 @@ from backend.config import settings
 from backend.flask.foreign import *
 from backend.flask.layer import *
 
-from backend.flask.utils.error_msg import *
+from backend.flask.utils.msgs import *
 
 api = Flask(__name__)
 CORS(api)
