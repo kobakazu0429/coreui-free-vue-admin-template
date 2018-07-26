@@ -43,10 +43,10 @@ def swicth_foreign(foreign, id):
             return make_response(get_foreign(foreign))
         elif request.method == 'POST':
             return make_response(post_foreign(foreign, request))
-        elif request.method == 'PATCH':
+        elif (request.method == 'PATCH' and id is not None):
             return make_response(patch_foreign(foreign, id, request))
-        elif request.method == 'DELETE':
-            return make_response(delete_foreign(foreign, id, request))
+        elif (request.method == 'DELETE' and id is not None):
+            return make_response(delete_foreign(foreign, id))
         else:
             return returnError404()
 
