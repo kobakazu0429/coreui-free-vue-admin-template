@@ -57,8 +57,17 @@ def swicth_foreign(foreign, id):
 # layer
 @api.route('/api/layer/', defaults={'id': None}, methods=['GET', 'POST', 'PATCH', 'DELETE'])
 @api.route('/api/layer/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
-def returnLayerFunc(id):
-    return make_response(get_layer(id))
+def swicth_layer(id):
+    if request.method == 'GET':
+        return make_response(get_layer(id))
+    elif request.method == 'POST':
+        return make_response(post_layer(request))
+    elif (request.method == 'PATCH' and id is not None):
+        return make_response(patch_layer(id, request))
+    elif (request.method == 'DELETE' and id is not None):
+        return make_response(delete_layer(id))
+    else:
+        return returnError404()
 
 
 if __name__ == '__main__':
