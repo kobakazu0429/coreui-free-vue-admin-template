@@ -2,7 +2,7 @@
 import sys
 sys.path.append("..")
 
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, request
 from flask_cors import CORS
 
 from backend.config import settings
@@ -34,18 +34,29 @@ def after_request_handler(exc):
         db.close()
 
 
-# GET: foreign
-@api.route('/api/<string:foreign>', methods=['GET'])
-def swictherReturn(foreign):
+# foreign
+@api.route('/api/<string:foreign>', defaults={'id': None}, methods=['GET', 'POST', 'PATCH', 'DELETE'])
+@api.route('/api/<string:foreign>/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
+def swicth_foreign(foreign, id):
     if foreign in ['types', 'groups', 'categories', 'formats', 'attributes']:
-        return make_response(get_foreign(foreign))
+        if request.method == 'GET':
+            return make_response(get_foreign(foreign))
+        elif request.method == 'POST':
+            return make_response(post_foreign(foreign, request))
+        elif request.method == 'PATCH':
+            return make_response(patch_foreign(foreign, id, request))
+        elif request.method == 'DELETE':
+            return make_response(delete_foreign(foreign, id, request))
+        else:
+            return returnError404()
+
     else:
         return returnErrorTable(foreign)
 
 
-# GET: layer
-@api.route('/api/layer/', defaults={'id': None}, methods=['GET'])
-@api.route('/api/layer/<int:id>', methods=['GET'])
+# layer
+@api.route('/api/layer/', defaults={'id': None}, methods=['GET', 'POST', 'PATCH', 'DELETE'])
+@api.route('/api/layer/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def returnLayerFunc(id):
     return make_response(get_layer(id))
 

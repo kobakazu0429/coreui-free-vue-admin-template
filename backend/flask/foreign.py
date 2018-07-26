@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from flask import jsonify
 
 from backend.models.Type import *
@@ -7,24 +9,76 @@ from backend.models.Category import *
 from backend.models.Format import *
 from backend.models.Attribute import *
 
+from backend.flask.utils.msgs import *
 
-def get_foreign(foreign):
+
+def return_this(foreign):
     if (foreign == 'types'):
-        this_class = Type()
+        return [Type(), 'type']
     elif (foreign == 'groups'):
-        this_class = Group()
+        return [Group(), 'group']
     elif (foreign == 'categories'):
-        this_class = Category()
+        return [Category(), 'category']
     elif (foreign == 'formats'):
-        this_class = Format()
+        return [Format(), 'format']
     elif (foreign == 'attributes'):
-        this_class = Attribute()
+        return [Attribute(), 'attribute']
     else:
         return
 
+
+def get_foreign(foreign):
     data = []
 
-    for x in this_class.select().order_by(this_class.id).dicts():
+    this = return_this(foreign)
+    this_Class = this[0]
+
+    for x in this_Class.select().order_by(this_Class.id).dicts():
         data.append(x)
 
     return jsonify(data)
+
+
+def post_foreign(foreign, request):
+    if (foreign == 'types'):
+        Type.create(
+            type=request.form['type'],
+            created_at=datetime.datetime.now(),
+            updated_at=datetime.datetime.now()
+        ),
+    elif (foreign == 'groups'):
+        Group.create(
+            group=request.form['group'],
+            created_at=datetime.datetime.now(),
+            updated_at=datetime.datetime.now()
+        ),
+    elif (foreign == 'categories'):
+        Category.create(
+            category=request.form['category'],
+            created_at=datetime.datetime.now(),
+            updated_at=datetime.datetime.now()
+        ),
+    elif (foreign == 'formats'):
+        Format.create(
+            format=request.form['format'],
+            created_at=datetime.datetime.now(),
+            updated_at=datetime.datetime.now()
+        ),
+    elif (foreign == 'attributes'):
+        Attribute.create(
+            attribute=request.form['attribute'],
+            created_at=datetime.datetime.now(),
+            updated_at=datetime.datetime.now()
+        ),
+    else:
+        return returnError404()
+
+    return returnResultCreate()
+
+
+def patch_foreign(foreign, id):
+    print('a')
+
+
+def delete_foreign(foreign, id):
+    print('a')
