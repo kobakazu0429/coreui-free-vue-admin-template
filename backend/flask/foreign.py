@@ -105,5 +105,12 @@ def patch_foreign(foreign, id, request):
     return returnResultPatch()
 
 
-def delete_foreign(foreign, id):
-    print('a')
+def delete_foreign(foreign, id, request):
+    this = return_this(foreign)
+    this_Class = this[0]
+
+    deleting_foreign = this_Class.get_by_id(id)
+
+    deleting_foreign.delete_instance()
+
+    return returnResultDelete()
