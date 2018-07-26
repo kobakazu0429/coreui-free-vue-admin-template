@@ -7,7 +7,6 @@ from backend.models.Category import *
 from backend.models.Format import *
 from backend.models.Attribute import *
 from backend.models.Layer import *
-
 from backend.flask.utils.msgs import *
 
 
