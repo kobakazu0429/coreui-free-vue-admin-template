@@ -37,7 +37,7 @@ def after_request_handler(exc):
 # foreign
 @api.route('/api/<string:foreign>', defaults={'id': None}, methods=['GET', 'POST', 'PATCH', 'DELETE'])
 @api.route('/api/<string:foreign>/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
-def swicth_foreign(foreign, id):
+def switch_foreign(foreign, id):
     if foreign in ['types', 'groups', 'categories', 'formats', 'attributes']:
         if request.method == 'GET':
             return make_response(get_foreign(foreign))
