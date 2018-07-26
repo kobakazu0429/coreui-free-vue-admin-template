@@ -76,8 +76,33 @@ def post_foreign(foreign, request):
     return returnResultCreate()
 
 
-def patch_foreign(foreign, id):
-    print('a')
+def patch_foreign(foreign, id, request):
+    this = return_this(foreign)
+    this_Class = this[0]
+
+    patching_foreign = this_Class.get_by_id(id)
+
+    if (foreign == 'types'):
+        patching_foreign.type = request.form['type']
+        patching_foreign.updated_at = datetime.datetime.now()
+    elif (foreign == 'groups'):
+        patching_foreign.group = request.form['group']
+        patching_foreign.updated_at = datetime.datetime.now()
+    elif (foreign == 'categories'):
+        patching_foreign.category = request.form['category']
+        patching_foreign.updated_at = datetime.datetime.now()
+    elif (foreign == 'formats'):
+        patching_foreign.format = request.form['format']
+        patching_foreign.updated_at = datetime.datetime.now()
+    elif (foreign == 'attributes'):
+        patching_foreign.attribute = request.form['attribute']
+        patching_foreign.updated_at = datetime.datetime.now()
+    else:
+        return returnError404()
+
+    patching_foreign.save()
+
+    return returnResultPatch()
 
 
 def delete_foreign(foreign, id):
