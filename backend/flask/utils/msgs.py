@@ -12,3 +12,11 @@ def returnErrorTable(table):
 
 def returnResultCreate():
     return make_response(jsonify({'result': 'Created'}), 200)
+
+
+def returnResultPatch():
+    return make_response(jsonify({'result': 'Patched'}), 200)
+
+
+def returnResultDelete():
+    return make_response(jsonify({'result': 'Deleted'}), 200)
