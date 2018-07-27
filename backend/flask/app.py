@@ -9,31 +9,35 @@ from backend.config import settings
 
 from backend.flask.utils.msgs import returnError404
 
-from backend.flask.api.layer import get_layer, post_layer, patch_layer, delete_layer
+from backend.flask.api.layers.get import get_layer
+from backend.flask.api.layers.post import post_layer
+from backend.flask.api.layers.patch import patch_layer
+from backend.flask.api.layers.delete import delete_layer
 
-from backend.flask.api.get.types import get_types
-from backend.flask.api.get.groups import get_groups
-from backend.flask.api.get.categories import get_categories
-from backend.flask.api.get.formats import get_formats
-from backend.flask.api.get.attributes import get_attributes
+from backend.flask.api.types.get import get_types
+from backend.flask.api.types.post import post_type
+from backend.flask.api.types.patch import patch_type
+from backend.flask.api.types.delete import delete_type
 
-from backend.flask.api.post.type import post_type
-from backend.flask.api.post.group import post_group
-from backend.flask.api.post.category import post_category
-from backend.flask.api.post.format import post_format
-from backend.flask.api.post.attribute import post_attribute
+from backend.flask.api.groups.get import get_groups
+from backend.flask.api.groups.post import post_group
+from backend.flask.api.groups.patch import patch_group
+from backend.flask.api.groups.delete import delete_group
 
-from backend.flask.api.patch.type import patch_type
-from backend.flask.api.patch.group import patch_group
-from backend.flask.api.patch.category import patch_category
-from backend.flask.api.patch.format import patch_format
-from backend.flask.api.patch.attribute import patch_attribute
+from backend.flask.api.categories.get import get_categories
+from backend.flask.api.categories.post import post_category
+from backend.flask.api.categories.patch import patch_category
+from backend.flask.api.categories.delete import delete_category
 
-from backend.flask.api.delete.type import delete_type
-from backend.flask.api.delete.group import delete_group
-from backend.flask.api.delete.category import delete_category
-from backend.flask.api.delete.format import delete_format
-from backend.flask.api.delete.attribute import delete_attribute
+from backend.flask.api.formats.get import get_formats
+from backend.flask.api.formats.post import post_format
+from backend.flask.api.formats.patch import patch_format
+from backend.flask.api.formats.delete import delete_format
+
+from backend.flask.api.attributes.get import get_attributes
+from backend.flask.api.attributes.post import post_attribute
+from backend.flask.api.attributes.patch import patch_attribute
+from backend.flask.api.attributes.delete import delete_attribute
 
 
 app = Flask(__name__)
@@ -169,29 +173,29 @@ def api_attribute_delete(id):
 
 # -------------------------------------------
 # Layer: GET
-@app.route('/api/layer/', defaults={'id': None}, methods=['GET'])
-@app.route('/api/layer/<int:id>', methods=['GET'])
+@app.route('/api/layers/', defaults={'id': None}, methods=['GET'])
+@app.route('/api/layers/<int:id>', methods=['GET'])
 def api_layer_get(id):
     return make_response(get_layer(id))
 
 
 # -------------------------------------------
 # Layer: POST
-@app.route('/api/layer/', methods=['POST'])
+@app.route('/api/layers/', methods=['POST'])
 def api_layer_post():
     return make_response(post_layer(request))
 
 
 # -------------------------------------------
 # Layer: PATCH
-@app.route('/api/layer/<int:id>', methods=['PATCH'])
+@app.route('/api/layers/<int:id>', methods=['PATCH'])
 def api_layer_patch(id):
     return make_response(patch_layer(id, request))
 
 
 # -------------------------------------------
 # Layer: DELETE
-@app.route('/api/layer/<int:id>', methods=['DELETE'])
+@app.route('/api/layers/<int:id>', methods=['DELETE'])
 def api_layer_delete(id):
     return make_response(delete_layer(id))
 
