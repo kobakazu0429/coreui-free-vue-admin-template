@@ -12,6 +12,7 @@ const Typography = () => import('@/views/theme/Typography')
 
 const Charts = () => import('@/views/Charts')
 const Widgets = () => import('@/views/Widgets')
+const Layers = () => import('@/views/Layers')
 
 // Views - Components
 const Cards = () => import('@/views/base/Cards')
@@ -81,7 +82,9 @@ export default new Router({
           redirect: '/theme/colors',
           name: 'Theme',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -107,22 +110,29 @@ export default new Router({
           component: Widgets
         },
         {
+          path: 'layers',
+          name: 'Layers',
+          component: Layers
+        },
+        {
           path: 'users',
-          meta: { label: 'Users'},
+          meta: { label: 'Users' },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
               path: '',
-              component: Users,
+              component: Users
             },
             {
               path: ':id',
-              meta: { label: 'User Details'},
+              meta: { label: 'User Details' },
               name: 'User',
-              component: User,
-            },
+              component: User
+            }
           ]
         },
         {
@@ -130,7 +140,9 @@ export default new Router({
           redirect: '/base/cards',
           name: 'Base',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -220,7 +232,9 @@ export default new Router({
           redirect: '/buttons/standard-buttons',
           name: 'Buttons',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -250,7 +264,9 @@ export default new Router({
           redirect: '/icons/font-awesome',
           name: 'Icons',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -280,7 +296,9 @@ export default new Router({
           redirect: '/notifications/alerts',
           name: 'Notifications',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -307,7 +325,9 @@ export default new Router({
       redirect: '/pages/404',
       name: 'Pages',
       component: {
-        render (c) { return c('router-view') }
+        render(c) {
+          return c('router-view')
+        }
       },
       children: [
         {

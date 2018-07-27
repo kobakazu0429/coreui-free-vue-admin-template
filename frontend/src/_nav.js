@@ -11,7 +11,7 @@ export default {
     },
     {
       name: 'Layers',
-      url: '/theme/colors',
+      url: '/layers',
       icon: 'icon-layers'
     },
     {
