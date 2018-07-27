@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, jsonify, make_response
+from flask import jsonify, make_response
 
 
 def returnError404():
