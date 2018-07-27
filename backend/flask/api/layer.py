@@ -7,7 +7,7 @@ from backend.models.Category import *
 from backend.models.Format import *
 from backend.models.Attribute import *
 from backend.models.Layer import *
-from backend.flask.utils.msgs import *
+from backend.flask.utils.msgs import returnResultCreate, returnResultPatch, returnResultDelete
 
 
 def get_layer(layer_id):
@@ -40,8 +40,6 @@ def get_layer(layer_id):
              .order_by(Layer.id)
              .dicts())
 
-
-# for x in Layer.select().order_by(Layer.id).dicts():
     for x in query:
         data.append(x)
 

@@ -6,8 +6,10 @@ from flask import Flask, jsonify, make_response, request
 from flask_cors import CORS
 
 from backend.config import settings
-from backend.flask.layer import *
-from backend.flask.utils.msgs import *
+
+from backend.flask.utils.msgs import returnError404
+
+from backend.flask.api.layer import get_layer, post_layer, patch_layer, delete_layer
 
 from backend.flask.api.get.types import get_types
 from backend.flask.api.get.groups import get_groups
@@ -47,14 +49,14 @@ def not_found(error):
 # 処理する前にdbへ接続する
 @app.before_request
 def before_request_handler():
-    db.connect()
+    settings.DB.connect()
 
 
 # 処理した後にdbを切断する
 @app.teardown_request
 def after_request_handler(exc):
-    if not db.is_closed():
-        db.close()
+    if not settings.DB.is_closed():
+        settings.DB.close()
 
 
 # Routing
@@ -166,20 +168,32 @@ def api_attribute_delete(id):
 
 
 # -------------------------------------------
-# layer
-@app.route('/api/layer/', defaults={'id': None}, methods=['GET', 'POST', 'PATCH', 'DELETE'])
-@app.route('/api/layer/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
-def swicth_layer(id):
-    if request.method == 'GET':
-        return make_response(get_layer(id))
-    elif request.method == 'POST':
-        return make_response(post_layer(request))
-    elif (request.method == 'PATCH' and id is not None):
-        return make_response(patch_layer(id, request))
-    elif (request.method == 'DELETE' and id is not None):
-        return make_response(delete_layer(id))
-    else:
-        return returnError404()
+# Layer: GET
+@app.route('/api/layer/', defaults={'id': None}, methods=['GET'])
+@app.route('/api/layer/<int:id>', methods=['GET'])
+def api_layer_get(id):
+    return make_response(get_layer(id))
+
+
+# -------------------------------------------
+# Layer: POST
+@app.route('/api/layer/', methods=['POST'])
+def api_layer_post():
+    return make_response(post_layer(request))
+
+
+# -------------------------------------------
+# Layer: PATCH
+@app.route('/api/layer/<int:id>', methods=['PATCH'])
+def api_layer_patch(id):
+    return make_response(patch_layer(id, request))
+
+
+# -------------------------------------------
+# Layer: DELETE
+@app.route('/api/layer/<int:id>', methods=['DELETE'])
+def api_layer_delete(id):
+    return make_response(delete_layer(id))
 
 
 if __name__ == '__main__':
