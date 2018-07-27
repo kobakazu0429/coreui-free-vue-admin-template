@@ -2,8 +2,8 @@ import sys
 sys.path.append("..")
 
 from peewee import *
-from backend.config import settings
 
+from backend.config import settings
 from backend.models.Type import *
 from backend.models.Group import *
 from backend.models.Category import *

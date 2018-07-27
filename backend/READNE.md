@@ -53,3 +53,38 @@ $ source map_api/bin/activate
 # virtualenvから抜ける
 $ deactivate
 ```
+
+## Docs
+
+### End Point
+
+```plaintext
+[GET]     /api/types/
+[GET]     /api/groups/
+[GET]     /api/categories/
+[GET]     /api/formats/
+[GET]     /api/attributes/
+[GET]     /api/layers/
+[GET]     /api/layers/<int:id>/
+
+[POST]    /api/types/
+[POST]    /api/groups/
+[POST]    /api/categories/
+[POST]    /api/formats/
+[POST]    /api/attributes/
+[POST]    /api/layers/
+
+[PATCH]   /api/types/<int:id>/
+[PATCH]   /api/groups/<int:id>/
+[PATCH]   /api/categories/<int:id>/
+[PATCH]   /api/formats/<int:id>/
+[PATCH]   /api/attributes/<int:id>/
+[PATCH]   /api/layers/<int:id>/
+
+[DELETE]  /api/types/<int:id>/
+[DELETE]  /api/groups/<int:id>/
+[DELETE]  /api/categories/<int:id>/
+[DELETE]  /api/formats/<int:id>/
+[DELETE]  /api/attributes/<int:id>/
+[DELETE]  /api/layers/<int:id>/
+```
