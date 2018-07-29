@@ -25,40 +25,30 @@ export default {
     },
     {
       name: 'Types',
-      url: '/theme/colors',
+      url: '/settings/types',
       icon: 'icon-settings'
     },
     {
       name: 'Groups',
-      url: '/theme/colors',
+      url: '/settings/groups',
       icon: 'icon-settings'
     },
     {
       name: 'Categories',
-      url: '/theme/colors',
+      url: '/settings/categories',
       icon: 'icon-settings'
     },
     {
       name: 'Formats',
-      url: '/theme/colors',
+      url: '/settings/formats',
       icon: 'icon-settings'
     },
     {
-      name: 'Attributions',
-      url: '/theme/colors',
-      icon: 'icon-settings'
-    },
-    {
-      name: 'Projections',
-      url: '/theme/colors',
+      name: 'Attributes',
+      url: '/settings/attributes',
       icon: 'icon-settings'
     },
     // add -------------------------------------------------------
-    {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer'
-    },
     {
       title: true,
       name: 'Theme',
@@ -72,11 +62,6 @@ export default {
       name: 'Colors',
       url: '/theme/colors',
       icon: 'icon-drop'
-    },
-    {
-      name: 'Typography',
-      url: '/theme/typography',
-      icon: 'icon-pencil'
     },
     {
       title: true,
@@ -93,58 +78,13 @@ export default {
       icon: 'icon-puzzle',
       children: [
         {
-          name: 'Breadcrumbs',
-          url: '/base/breadcrumbs',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Cards',
-          url: '/base/cards',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Carousels',
-          url: '/base/carousels',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Collapses',
-          url: '/base/collapses',
-          icon: 'icon-puzzle'
-        },
-        {
           name: 'Forms',
           url: '/base/forms',
           icon: 'icon-puzzle'
         },
         {
-          name: 'Jumbotrons',
-          url: '/base/jumbotrons',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'List Groups',
-          url: '/base/list-groups',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Navs',
-          url: '/base/navs',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Navbars',
-          url: '/base/navbars',
-          icon: 'icon-puzzle'
-        },
-        {
           name: 'Paginations',
           url: '/base/paginations',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Popovers',
-          url: '/base/popovers',
           icon: 'icon-puzzle'
         },
         {
@@ -158,18 +98,8 @@ export default {
           icon: 'icon-puzzle'
         },
         {
-          name: 'Tables',
-          url: '/base/tables',
-          icon: 'icon-puzzle'
-        },
-        {
           name: 'Tabs',
           url: '/base/tabs',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Tooltips',
-          url: '/base/tooltips',
           icon: 'icon-puzzle'
         }
       ]
@@ -193,18 +123,8 @@ export default {
           name: 'Button Groups',
           url: '/buttons/button-groups',
           icon: 'icon-cursor'
-        },
-        {
-          name: 'Brand Buttons',
-          url: '/buttons/brand-buttons',
-          icon: 'icon-cursor'
         }
       ]
-    },
-    {
-      name: 'Charts',
-      url: '/charts',
-      icon: 'icon-pie-chart'
     },
     {
       name: 'Icons',
@@ -219,11 +139,6 @@ export default {
             variant: 'info',
             text: 'NEW'
           }
-        },
-        {
-          name: 'Flags',
-          url: '/icons/flags',
-          icon: 'icon-star'
         },
         {
           name: 'Font Awesome',
@@ -246,11 +161,6 @@ export default {
       url: '/notifications',
       icon: 'icon-bell',
       children: [
-        {
-          name: 'Alerts',
-          url: '/notifications/alerts',
-          icon: 'icon-bell'
-        },
         {
           name: 'Badges',
           url: '/notifications/badges',
@@ -276,44 +186,9 @@ export default {
       name: 'Extras'
     },
     {
-      name: 'Pages',
-      url: '/pages',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Login',
-          url: '/pages/login',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Register',
-          url: '/pages/register',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 404',
-          url: '/pages/404',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 500',
-          url: '/pages/500',
-          icon: 'icon-star'
-        }
-      ]
-    },
-    {
-      name: 'Download CoreUI',
-      url: 'http://coreui.io/vue/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success'
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'http://coreui.io/pro/vue/',
-      icon: 'icon-layers',
-      variant: 'danger'
+      name: '呉高専マップ',
+      url: 'https://kure-kosen-map.netlify.com/map.html',
+      icon: 'icon-map'
     }
   ]
-};
+}

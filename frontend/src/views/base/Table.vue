@@ -42,6 +42,12 @@
             <p>attribute_utl : {{data.item.attribute_utl}}</p>
           </b-modal>
         </template>
+        <template slot="updated_at_moment" slot-scope="data">
+          <p>{{$moment(data.item.updated_at).format('YYYY/MM/DD - HH:mm:ss')}}</p>
+        </template>
+        <template slot="created_at_moment" slot-scope="data">
+          <p>{{$moment(data.item.created_at).format('YYYY/MM/DD - HH:mm:ss')}}</p>
+        </template>
       </b-table>
     </b-card>
 </template>

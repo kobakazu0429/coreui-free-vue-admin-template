@@ -12,7 +12,15 @@ const Typography = () => import('@/views/theme/Typography')
 
 const Charts = () => import('@/views/Charts')
 const Widgets = () => import('@/views/Widgets')
+
 const Layers = () => import('@/views/Layers')
+
+// Views - Settings
+const Types = () => import('@/views/settings/Types')
+const Groups = () => import('@/views/settings/Groups')
+const Categories = () => import('@/views/settings/Categories')
+const Formats = () => import('@/views/settings/Formats')
+const Attributes = () => import('@/views/settings/Attributes')
 
 // Views - Components
 const Cards = () => import('@/views/base/Cards')
@@ -113,6 +121,43 @@ export default new Router({
           path: 'layers',
           name: 'Layers',
           component: Layers
+        },
+        {
+          path: 'settings',
+          redirect: '/settings/types',
+          name: 'Settings',
+          component: {
+            render(c) {
+              return c('router-view')
+            }
+          },
+          children: [
+            {
+              path: 'types',
+              name: 'Types',
+              component: Types
+            },
+            {
+              path: 'groups',
+              name: 'Groups',
+              component: Groups
+            },
+            {
+              path: 'categories',
+              name: 'Categories',
+              component: Categories
+            },
+            {
+              path: 'formats',
+              name: 'Formats',
+              component: Formats
+            },
+            {
+              path: 'attributes',
+              name: 'Attributes',
+              component: Attributes
+            }
+          ]
         },
         {
           path: 'users',
