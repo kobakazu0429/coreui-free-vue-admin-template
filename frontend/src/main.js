@@ -11,12 +11,14 @@ import router from './router'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueMoment from 'vue-moment'
 
 // todo
 // cssVars()
 
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
+Vue.use(VueMoment)
 
 /* eslint-disable no-new */
 new Vue({
