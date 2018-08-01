@@ -8,7 +8,7 @@ from backend.flask.utils.msgs import returnResultPatch
 def patch_category(id, request):
     patching_category = Category.get_by_id(id)
 
-    patching_category.category = request.form['category']
+    patching_category.category = request.json['category']
     patching_category.updated_at = datetime.datetime.now()
 
     patching_category.save()

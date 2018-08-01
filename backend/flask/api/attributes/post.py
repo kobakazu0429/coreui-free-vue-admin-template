@@ -7,8 +7,8 @@ from backend.flask.utils.msgs import returnResultCreate
 
 def post_attribute(request):
     Attribute.create(
-        title=request.form['title'],
-        url=request.form['url'],
+        title=request.json['title'],
+        url=request.json['url'],
         created_at=datetime.datetime.now(),
         updated_at=datetime.datetime.now(),
     )
