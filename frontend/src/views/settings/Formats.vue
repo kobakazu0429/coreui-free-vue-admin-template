@@ -1,14 +1,8 @@
 <template>
   <div class="animated fadeIn">
-      <b-col lg="12">
-        <c-table
-          bordered
-          caption="Formats"
-          :fields="fields"
-          :items="items"
-          :sort-by.sync="sortBy"
-        ></c-table>
-      </b-col>
+    <b-col lg="12">
+      <c-table bordered caption="Formats" :fields="fields" :items="items" :sort-by.sync="sortBy"></c-table>
+    </b-col>
   </div>
 </template>
 
@@ -35,7 +29,7 @@ export default {
     }
   },
   mounted: function() {
-    this.axios.get('http://0.0.0.0:5000/api/formats/').then(response => {
+    this.axios.get('/api/formats/').then(response => {
       this.items = response.data
     })
   }
