@@ -7,7 +7,7 @@ from backend.flask.utils.msgs import returnResultCreate
 
 def post_type(request):
     Type.create(
-        type=request.form['type'],
+        type=request.json['type'],
         created_at=datetime.datetime.now(),
         updated_at=datetime.datetime.now(),
     )
