@@ -12,6 +12,7 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMoment from 'vue-moment'
+import moment from 'moment-timezone'
 
 switch (process.env.NODE_ENV) {
   case 'development':
@@ -27,7 +28,9 @@ switch (process.env.NODE_ENV) {
 
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
-Vue.use(VueMoment)
+Vue.use(VueMoment, {
+  moment
+})
 
 /* eslint-disable no-new */
 new Vue({
