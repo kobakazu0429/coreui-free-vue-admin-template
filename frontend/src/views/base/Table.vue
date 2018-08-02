@@ -8,7 +8,7 @@
         </b-input-group-append>
       </b-input-group>
     </b-form-group>
-    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" :fields="fields" :items="items" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter" @filtered="onFiltered" responsive="sm">
+    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" :fields="fields" :items="items" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter" responsive="sm">
       <template slot="attribute" slot-scope="data">
         <a :href="data.item.attribute_utl">{{data.item.attribute_title}}</a>
       </template>
@@ -71,13 +71,6 @@ export default {
     }
   },
   methods: {
-    getRowCount(items) {
-      return items.length
-    },
-    onFiltered(filteredItems) {
-      this.totalRows = filteredItems.length
-      this.currentPage = 1
-    },
     showModal(id) {
       this.$refs[id].show()
     },
