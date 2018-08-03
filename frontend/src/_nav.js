@@ -6,13 +6,18 @@ export default {
       class: '',
       wrapper: {
         element: '',
-        attributes: {}
-      }
+        attributes: {},
+      },
     },
     {
       name: 'Layers',
       url: '/layers',
-      icon: 'icon-layers'
+      icon: 'icon-layers',
+    },
+    {
+      name: 'Documents',
+      url: '/documents',
+      icon: 'icon-doc',
     },
     {
       title: true,
@@ -20,48 +25,48 @@ export default {
       class: '',
       wrapper: {
         element: '',
-        attributes: {}
-      }
+        attributes: {},
+      },
     },
     {
       name: 'Types',
       url: '/settings/types',
-      icon: 'icon-settings'
+      icon: 'icon-settings',
     },
     {
       name: 'Groups',
       url: '/settings/groups',
-      icon: 'icon-settings'
+      icon: 'icon-settings',
     },
     {
       name: 'Categories',
       url: '/settings/categories',
-      icon: 'icon-settings'
+      icon: 'icon-settings',
     },
     {
       name: 'Formats',
       url: '/settings/formats',
-      icon: 'icon-settings'
+      icon: 'icon-settings',
     },
     {
       name: 'Attributes',
       url: '/settings/attributes',
-      icon: 'icon-settings'
+      icon: 'icon-settings',
     },
-    // add -------------------------------------------------------
+
     {
       title: true,
       name: 'Theme',
       class: '',
       wrapper: {
         element: '',
-        attributes: {}
-      }
+        attributes: {},
+      },
     },
     {
       name: 'Colors',
       url: '/theme/colors',
-      icon: 'icon-drop'
+      icon: 'icon-drop',
     },
     {
       title: true,
@@ -69,8 +74,8 @@ export default {
       class: '',
       wrapper: {
         element: '',
-        attributes: {}
-      }
+        attributes: {},
+      },
     },
     {
       name: 'Base',
@@ -80,29 +85,29 @@ export default {
         {
           name: 'Forms',
           url: '/base/forms',
-          icon: 'icon-puzzle'
+          icon: 'icon-puzzle',
         },
         {
           name: 'Paginations',
           url: '/base/paginations',
-          icon: 'icon-puzzle'
+          icon: 'icon-puzzle',
         },
         {
           name: 'Progress Bars',
           url: '/base/progress-bars',
-          icon: 'icon-puzzle'
+          icon: 'icon-puzzle',
         },
         {
           name: 'Switches',
           url: '/base/switches',
-          icon: 'icon-puzzle'
+          icon: 'icon-puzzle',
         },
         {
           name: 'Tabs',
           url: '/base/tabs',
-          icon: 'icon-puzzle'
-        }
-      ]
+          icon: 'icon-puzzle',
+        },
+      ],
     },
     {
       name: 'Buttons',
@@ -112,19 +117,19 @@ export default {
         {
           name: 'Buttons',
           url: '/buttons/standard-buttons',
-          icon: 'icon-cursor'
+          icon: 'icon-cursor',
         },
         {
           name: 'Button Dropdowns',
           url: '/buttons/dropdowns',
-          icon: 'icon-cursor'
+          icon: 'icon-cursor',
         },
         {
           name: 'Button Groups',
           url: '/buttons/button-groups',
-          icon: 'icon-cursor'
-        }
-      ]
+          icon: 'icon-cursor',
+        },
+      ],
     },
     {
       name: 'Icons',
@@ -137,8 +142,8 @@ export default {
           icon: 'icon-star',
           badge: {
             variant: 'info',
-            text: 'NEW'
-          }
+            text: 'NEW',
+          },
         },
         {
           name: 'Font Awesome',
@@ -146,15 +151,15 @@ export default {
           icon: 'icon-star',
           badge: {
             variant: 'secondary',
-            text: '4.7'
-          }
+            text: '4.7',
+          },
         },
         {
           name: 'Simple Line Icons',
           url: '/icons/simple-line-icons',
-          icon: 'icon-star'
-        }
-      ]
+          icon: 'icon-star',
+        },
+      ],
     },
     {
       name: 'Notifications',
@@ -164,31 +169,31 @@ export default {
         {
           name: 'Badges',
           url: '/notifications/badges',
-          icon: 'icon-bell'
+          icon: 'icon-bell',
         },
         {
           name: 'Modals',
           url: '/notifications/modals',
-          icon: 'icon-bell'
-        }
-      ]
+          icon: 'icon-bell',
+        },
+      ],
     },
     {
       name: 'Widgets',
       url: '/widgets',
-      icon: 'icon-calculator'
+      icon: 'icon-calculator',
     },
     {
-      divider: true
+      divider: true,
     },
     {
       title: true,
-      name: 'Extras'
+      name: 'Extras',
     },
     {
       name: '呉高専マップ',
       url: 'https://kure-kosen-map.netlify.com/map.html',
-      icon: 'icon-map'
-    }
-  ]
+      icon: 'icon-map',
+    },
+  ],
 }
