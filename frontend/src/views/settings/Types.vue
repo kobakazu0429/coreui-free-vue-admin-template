@@ -28,20 +28,20 @@ const fields = [
   { key: 'type', label: 'タイプ', sortable: true },
   { key: 'updated_at_moment', label: '更新日' },
   { key: 'created_at_moment', label: '作成日' },
-  { key: 'actions', label: '操作' }
+  { key: 'actions', label: '操作' },
 ]
 
 export default {
   name: 'types',
   components: {
-    cTable
+    cTable,
   },
   data() {
     return {
       sortBy: 'id',
       fields: fields,
       items: null,
-      input: null
+      input: null,
     }
   },
   mounted: function() {
@@ -53,7 +53,7 @@ export default {
     post: function() {
       this.axios
         .post('/api/types/', {
-          type: this.input
+          type: this.input,
         })
         .then(response => {
           location.reload()
@@ -75,7 +75,7 @@ export default {
     edit_column: function(params) {
       this.axios
         .patch(`/api/types/${params.id}/`, {
-          type: params.edited
+          type: params.edited.type,
         })
         .then(response => {
           location.reload()
@@ -83,7 +83,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    }
-  }
+    },
+  },
 }
 </script>
