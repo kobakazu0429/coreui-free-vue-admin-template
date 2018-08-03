@@ -19,23 +19,23 @@
             </b-form-group>
             <b-form-group>
               <label for="type">タイプ</label>
-              <b-form-select id="type" :plain="false" :options="types" v-model="selected_type_id"></b-form-select>
+              <b-form-select id="type" :plain="false" :options="select_data.types" v-model="selected.type_id"></b-form-select>
             </b-form-group>
             <b-form-group>
               <label for="group">グループ</label>
-              <b-form-select id="group" :plain="false" :options="groups" v-model="selected_group_id"></b-form-select>
+              <b-form-select id="group" :plain="false" :options="select_data.groups" v-model="selected.group_id"></b-form-select>
             </b-form-group>
             <b-form-group>
               <label for="category">カテゴリー</label>
-              <b-form-select id="category" :plain="false" :options="categories" v-model="selected_category_id"></b-form-select>
+              <b-form-select id="category" :plain="false" :options="select_data.categories" v-model="selected.category_id"></b-form-select>
             </b-form-group>
             <b-form-group>
               <label for="format">フォーマット</label>
-              <b-form-select id="format" :plain="false" :options="formats" v-model="selected_format_id"></b-form-select>
+              <b-form-select id="format" :plain="false" :options="select_data.formats" v-model="selected.format_id"></b-form-select>
             </b-form-group>
             <b-form-group>
               <label for="attribute">出典</label>
-              <b-form-select id="attribute" :plain="false" :options="attributes" v-model="selected_attribute_id"></b-form-select>
+              <b-form-select id="attribute" :plain="false" :options="select_data.attributes" v-model="selected.attribute_id"></b-form-select>
             </b-form-group>
           </div>
           <div class="modal-footer">
@@ -44,7 +44,7 @@
           </div>
         </b-modal>
       </b-card>
-      <c-table bordered caption="Layers" :fields="fields" :items="items" :sort-by.sync="sortBy"></c-table>
+      <c-table bordered caption="Layers" :fields="fields" :items="items" :selectData="select_data" :sort-by.sync="sortBy" @delete-id="deleteLayers" @edit-id="patchLayers"></c-table>
     </b-col>
   </div>
 </template>
@@ -61,13 +61,13 @@ const fields = [
   { key: 'format', label: 'フォーマット', sortable: true },
   { key: 'attribute', label: '出典' },
   { key: 'status', label: 'ステータス', sortable: true },
-  { key: 'more-info', label: '詳細' }
+  { key: 'actions', label: '操作' },
 ]
 
 export default {
   name: 'layers',
   components: {
-    cTable
+    cTable,
   },
   data() {
     return {
@@ -77,16 +77,8 @@ export default {
       layer_name: '',
       layer_url: '',
       layer_description: '',
-      types: [],
-      groups: [],
-      categories: [],
-      formats: [],
-      attributes: [],
-      selected_type_id: null,
-      selected_group_id: null,
-      selected_category_id: null,
-      selected_format_id: null,
-      selected_attribute_id: null
+      select_data: {},
+      selected: {},
     }
   },
   methods: {
@@ -96,17 +88,47 @@ export default {
     hideModal(id) {
       this.$refs[id].hide()
     },
+    deleteLayers(id) {
+      this.axios
+        .delete(`/api/layers/${id}/`)
+        .then(response => {
+          location.reload()
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    patchLayers(params) {
+      console.log(params)
+      this.axios
+        .patch(`/api/layers/${params.id}/`, {
+          type_id: params.edited.type_id,
+          group_id: params.edited.group_id,
+          category_id: params.edited.category_id,
+          name: params.edited.name,
+          url: params.edited.url,
+          format_id: params.edited.format_id,
+          attribute_id: params.edited.attribute_id,
+          description: params.edited.description,
+        })
+        .then(response => {
+          location.reload()
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     postLayers() {
       this.axios
         .post('/api/layers/', {
-          type_id: this.selected_type_id,
-          group_id: this.selected_group_id,
-          category_id: this.selected_category_id,
+          type_id: this.selected.type_id,
+          group_id: this.selected.group_id,
+          category_id: this.selected.category_id,
           name: this.layer_name,
           url: this.layer_url,
-          format_id: this.selected_format_id,
-          attribute_id: this.selected_attribute_id,
-          description: this.layer_description
+          format_id: this.selected.format_id,
+          attribute_id: this.selected.attribute_id,
+          description: this.layer_description,
         })
         .then(response => {
           location.reload()
@@ -124,27 +146,27 @@ export default {
         tmp_arr.push(tmp_obj)
       }
       return tmp_arr
-    }
+    },
   },
   mounted: function() {
     this.axios.get('/api/layers/').then(response => {
       this.items = response.data
     })
     this.axios.get('/api/types/').then(response => {
-      this.types = this.toSelectOptions(response.data, 'type')
+      this.select_data.types = this.toSelectOptions(response.data, 'type')
     })
     this.axios.get('/api/groups/').then(response => {
-      this.groups = this.toSelectOptions(response.data, 'group')
+      this.select_data.groups = this.toSelectOptions(response.data, 'group')
     })
     this.axios.get('/api/categories/').then(response => {
-      this.categories = this.toSelectOptions(response.data, 'category')
+      this.select_data.categories = this.toSelectOptions(response.data, 'category')
     })
     this.axios.get('/api/formats/').then(response => {
-      this.formats = this.toSelectOptions(response.data, 'format')
+      this.select_data.formats = this.toSelectOptions(response.data, 'format')
     })
     this.axios.get('/api/attributes/').then(response => {
-      this.attributes = this.toSelectOptions(response.data, 'attribute')
+      this.select_data.attributes = this.toSelectOptions(response.data, 'attribute')
     })
-  }
+  },
 }
 </script>
