@@ -176,7 +176,8 @@ def api_attribute_delete(id):
 @app.route('/api/layers/', defaults={'id': None}, methods=['GET'])
 @app.route('/api/layers/<int:id>/', methods=['GET'])
 def api_layer_get(id):
-    return make_response(get_layer(id))
+    is_all = True if request.args.get('all') == 'true' else False
+    return make_response(get_layer(id, is_all))
 
 
 # -------------------------------------------

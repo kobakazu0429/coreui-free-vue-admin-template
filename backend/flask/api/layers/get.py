@@ -9,13 +9,17 @@ from backend.models.Attribute import *
 from backend.models.Layer import *
 
 
-def get_layer(layer_id):
+def get_layer(layer_id, is_all):
     data = []
 
     where_cond = None
 
-    if layer_id is not None:
+    if layer_id is not None and is_all == True:
         where_cond = (Layer.id == layer_id)
+    elif layer_id is not None and is_all == False:
+        where_cond = (Layer.id == layer_id, Layer.is_active == False)
+    elif layer_id is None and is_all == False:
+        where_cond = (Layer.is_active == False)
 
     query = (Layer
              .select(
@@ -23,6 +27,7 @@ def get_layer(layer_id):
                  Layer.name,
                  Layer.url,
                  Layer.description,
+                 Layer.is_active,
                  Type.type,
                  Group.group,
                  Category.category,
