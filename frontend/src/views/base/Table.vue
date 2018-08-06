@@ -19,7 +19,14 @@
       </template>
 
       <!-- ステータスカラム -->
-      <template slot="status" slot-scope="data"></template>
+      <template slot="status" slot-scope="data">
+        <h4 v-if="data.item.is_active">
+          <b-badge variant="primary">公開中</b-badge>
+        </h4>
+        <h4 v-if="!data.item.is_active">
+          <b-badge variant="danger">非公開</b-badge>
+        </h4>
+      </template>
 
       <!-- 更新日カラム -->
       <template slot="updated_at_moment" slot-scope="data">
@@ -38,7 +45,7 @@
           <b-button class="mr-1" variant="outline-dark" @click="showModal('modal'+data.item.id)">詳細</b-button>
         </template>
 
-        <b-button class="mr-1" variant="outline-primary" @click="showModal('edit-modal'+data.item.id)">編集</b-button>
+        <b-button class="mr-1" variant="outline-primary" @click="showModal('edit-modal'+data.item.id, data.item)">編集</b-button>
         <b-button variant="outline-danger" @click="$emit('delete-id', data.item.id)">削除</b-button>
 
         <!-- 詳細モーダル -->
@@ -54,6 +61,7 @@
             <p>format : {{data.item.format}}</p>
             <p>attribute_title : {{data.item.attribute_title}}</p>
             <p>attribute_utl : {{data.item.attribute_utl}}</p>
+            <p>is_active : {{data.item.is_active}}</p>
           </b-modal>
         </template>
 
@@ -95,6 +103,10 @@
               <b-form-group>
                 <label for="attribute">{{`出典: 現在は「${data.item.attribute_title} - ${data.item.attribute_utl}」です`}}</label>
                 <b-form-select class="mb-1" :plain="false" :options="selectData.attributes" v-model="edited.attribute_id"></b-form-select>
+              </b-form-group>
+              <b-form-group>
+                <label for="is_active">{{`公開/非公開: 現在は「${toVerbalize(data.item.is_active)}」です`}}</label><br>
+                <c-switch class="mx-1" color="primary" defaultChecked variant="3d" label v-bind="labelIcon" v-model="edited.is_active" />
               </b-form-group>
             </template>
 
@@ -146,8 +158,13 @@
 </template>
 
 <script>
+import { Switch as cSwitch } from '@coreui/vue'
+
 export default {
   name: 'c-table',
+  components: {
+    cSwitch,
+  },
   data() {
     return {
       sortDesc: false,
@@ -161,15 +178,32 @@ export default {
         category_id: null,
         format_id: null,
         attribute_id: null,
+        is_active: null,
+      },
+      labelIcon: {
+        dataOn: '\u2713',
+        dataOff: '\u2715',
       },
     }
   },
   methods: {
-    showModal(id) {
+    showModal(id, item) {
       this.$refs[id].show()
+      this.edited.name = item.name
+      this.edited.url = item.url
+      this.edited.description = item.description
+      this.edited.type_id = item.type_id
+      this.edited.group_id = item.group_id
+      this.edited.category_id = item.category_id
+      this.edited.format_id = item.format_id
+      this.edited.attribute_id = item.attribute_id
+      this.edited.is_active = item.is_active
     },
     hideModal(id) {
       this.$refs[id].hide()
+    },
+    toVerbalize(bool) {
+      return bool ? '公開中' : '非公開'
     },
   },
   props: {
