@@ -37,6 +37,10 @@
               <label for="attribute">出典</label>
               <b-form-select id="attribute" :plain="false" :options="select_data.attributes" v-model="selected.attribute_id"></b-form-select>
             </b-form-group>
+            <b-form-group>
+              <label for="is_active">公開/非公開</label><br>
+              <c-switch class="mx-1" color="primary" defaultChecked variant="3d" label v-bind="labelIcon" v-model="is_active" />
+            </b-form-group>
           </div>
           <div class="modal-footer">
             <b-button variant="secondary" data-dismiss="modal" @click="hideModal('new-layer-modal')">キャンセル</b-button>
@@ -51,6 +55,7 @@
 
 <script>
 import cTable from './base/Table'
+import { Switch as cSwitch } from '@coreui/vue'
 
 const fields = [
   { key: 'id', label: 'ID', sortable: true },
@@ -68,6 +73,7 @@ export default {
   name: 'layers',
   components: {
     cTable,
+    cSwitch,
   },
   data() {
     return {
@@ -79,6 +85,11 @@ export default {
       layer_description: '',
       select_data: {},
       selected: {},
+      is_active: null,
+      labelIcon: {
+        dataOn: '\u2713',
+        dataOff: '\u2715',
+      },
     }
   },
   methods: {
@@ -110,6 +121,7 @@ export default {
           format_id: params.edited.format_id,
           attribute_id: params.edited.attribute_id,
           description: params.edited.description,
+          is_active: params.edited.is_active,
         })
         .then(response => {
           location.reload()
@@ -129,6 +141,7 @@ export default {
           format_id: this.selected.format_id,
           attribute_id: this.selected.attribute_id,
           description: this.layer_description,
+          is_active: this.is_active,
         })
         .then(response => {
           location.reload()
@@ -149,7 +162,7 @@ export default {
     },
   },
   mounted: function() {
-    this.axios.get('/api/layers/').then(response => {
+    this.axios.get('/api/layers/?all=true').then(response => {
       this.items = response.data
     })
     this.axios.get('/api/types/').then(response => {
