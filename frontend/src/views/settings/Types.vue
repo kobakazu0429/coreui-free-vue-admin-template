@@ -9,7 +9,7 @@
             <i class="fa fa-dot-circle-o"></i>
             Submit
           </b-button>
-          <b-button type="reset" size="sm" variant="danger">
+          <b-button type="reset" size="sm" variant="danger" @click="input=''">
             <i class="fa fa-ban"></i>
             Reset
           </b-button>
