@@ -121,9 +121,9 @@
                 </template>
 
                 <!-- Attributes.vue用 -->
-                <template v-if="data.item.attribute_title !== undefined && data.item.name === undefined">
-                  <b-form-input v-model="edited.title" :placeholder="`現在は「${data.item.attribute_title}」です`" />
-                  <b-form-input v-model="edited.url" :placeholder="`現在は「${data.item.attribute_utl}」です`" />
+                <template v-if="data.item.title !== undefined && data.item.name === undefined">
+                  <b-form-input v-model="edited.title" :placeholder="`現在は「${data.item.title}」です`" />
+                  <b-form-input v-model="edited.url" :placeholder="`現在は「${data.item.url}」です`" />
                 </template>
 
                 <b-input-group-append>
@@ -152,7 +152,6 @@ export default {
     return {
       sortDesc: false,
       filter: null,
-      edited: null,
       edited: {
         name: null,
         url: null,
