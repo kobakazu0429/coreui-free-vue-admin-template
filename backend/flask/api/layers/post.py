@@ -14,6 +14,7 @@ def post_layer(request):
         format_id=request.json['format_id'],
         attribute_id=request.json['attribute_id'],
         description=request.json['description'],
+        is_active=request.json['is_active'],
         created_at=datetime.datetime.now(),
         updated_at=datetime.datetime.now()
     )

@@ -17,6 +17,7 @@ class Layer(BaseModel):
     format_id = ForeignKeyField(Format)
     attribute_id = ForeignKeyField(Attribute)
     description = TextField()
+    is_active = BooleanField(null=False, default=True)
 
     class Meta:
         db_table = 'layers'

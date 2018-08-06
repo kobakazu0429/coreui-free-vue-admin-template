@@ -13,6 +13,15 @@ const Typography = () => import('@/views/theme/Typography')
 const Charts = () => import('@/views/Charts')
 const Widgets = () => import('@/views/Widgets')
 
+const Layers = () => import('@/views/Layers')
+
+// Views - Settings
+const Types = () => import('@/views/settings/Types')
+const Groups = () => import('@/views/settings/Groups')
+const Categories = () => import('@/views/settings/Categories')
+const Formats = () => import('@/views/settings/Formats')
+const Attributes = () => import('@/views/settings/Attributes')
+
 // Views - Components
 const Cards = () => import('@/views/base/Cards')
 const Forms = () => import('@/views/base/Forms')
@@ -81,7 +90,9 @@ export default new Router({
           redirect: '/theme/colors',
           name: 'Theme',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -107,22 +118,66 @@ export default new Router({
           component: Widgets
         },
         {
-          path: 'users',
-          meta: { label: 'Users'},
+          path: 'layers',
+          name: 'Layers',
+          component: Layers
+        },
+        {
+          path: 'settings',
+          redirect: '/settings/types',
+          name: 'Settings',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
+          },
+          children: [
+            {
+              path: 'types',
+              name: 'Types',
+              component: Types
+            },
+            {
+              path: 'groups',
+              name: 'Groups',
+              component: Groups
+            },
+            {
+              path: 'categories',
+              name: 'Categories',
+              component: Categories
+            },
+            {
+              path: 'formats',
+              name: 'Formats',
+              component: Formats
+            },
+            {
+              path: 'attributes',
+              name: 'Attributes',
+              component: Attributes
+            }
+          ]
+        },
+        {
+          path: 'users',
+          meta: { label: 'Users' },
+          component: {
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
               path: '',
-              component: Users,
+              component: Users
             },
             {
               path: ':id',
-              meta: { label: 'User Details'},
+              meta: { label: 'User Details' },
               name: 'User',
-              component: User,
-            },
+              component: User
+            }
           ]
         },
         {
@@ -130,7 +185,9 @@ export default new Router({
           redirect: '/base/cards',
           name: 'Base',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -220,7 +277,9 @@ export default new Router({
           redirect: '/buttons/standard-buttons',
           name: 'Buttons',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -250,7 +309,9 @@ export default new Router({
           redirect: '/icons/font-awesome',
           name: 'Icons',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -280,7 +341,9 @@ export default new Router({
           redirect: '/notifications/alerts',
           name: 'Notifications',
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c('router-view')
+            }
           },
           children: [
             {
@@ -307,7 +370,9 @@ export default new Router({
       redirect: '/pages/404',
       name: 'Pages',
       component: {
-        render (c) { return c('router-view') }
+        render(c) {
+          return c('router-view')
+        }
       },
       children: [
         {

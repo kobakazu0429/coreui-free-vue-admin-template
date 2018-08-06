@@ -15,6 +15,7 @@ def patch_layer(layer_id, request):
     patching_layer.format_id = request.json['format_id']
     patching_layer.attribute_id = request.json['attribute_id']
     patching_layer.description = request.json['description']
+    patching_layer.is_active = request.json['is_active']
     patching_layer.updated_at = datetime.datetime.now()
 
     patching_layer.save()

@@ -1,109 +1,248 @@
 <template>
   <b-card :header="caption">
-    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <!-- filer -->
+    <b-form-group class="mb-3">
+      <b-input-group>
+        <b-form-input v-model="filter" placeholder="Type to Search" />
+        <b-input-group-append>
+          <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
+
+    <!-- table -->
+    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" :fields="fields" :items="items" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :filter="filter" responsive="sm">
+
+      <!-- 出典カラム:リンクで飛べるようにする -->
+      <template slot="attribute" slot-scope="data">
+        <a :href="data.item.attribute_utl">{{data.item.attribute_title}}</a>
+      </template>
+
+      <!-- ステータスカラム -->
       <template slot="status" slot-scope="data">
-        <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
+        <h4 v-if="data.item.is_active">
+          <b-badge variant="primary">公開中</b-badge>
+        </h4>
+        <h4 v-if="!data.item.is_active">
+          <b-badge variant="danger">非公開</b-badge>
+        </h4>
+      </template>
+
+      <!-- 更新日カラム -->
+      <template slot="updated_at_moment" slot-scope="data">
+        <p>{{$moment(data.item.updated_at).tz('Etc/GMT').format('YYYY/MM/DD - HH:mm:ss')}}</p>
+      </template>
+
+      <!-- 作成日カラム -->
+      <template slot="created_at_moment" slot-scope="data">
+        <p>{{$moment(data.item.created_at).tz('Etc/GMT').format('YYYY/MM/DD - HH:mm:ss')}}</p>
+      </template>
+
+      <!-- 操作カラム -->
+      <template slot="actions" slot-scope="data">
+        <!-- layersの時は詳細ボタンの表示 -->
+        <template v-if="data.item.name !== undefined">
+          <b-button class="mr-1" variant="outline-dark" @click="showModal('modal'+data.item.id)">詳細</b-button>
+        </template>
+
+        <b-button class="mr-1" variant="outline-primary" @click="showModal('edit-modal'+data.item.id, data.item)">編集</b-button>
+        <b-button variant="outline-danger" @click="$emit('delete-id', data.item.id)">削除</b-button>
+
+        <!-- 詳細モーダル -->
+        <template v-if="data.item.name !== undefined">
+          <b-modal :ref="'modal'+data.item.id" title="詳細" hide-footer>
+            <p>id : {{data.item.id}}</p>
+            <p>name : {{data.item.name}}</p>
+            <p>description : {{data.item.description}}</p>
+            <p>url : {{data.item.url}}</p>
+            <p>type : {{data.item.type}}</p>
+            <p>group : {{data.item.group}}</p>
+            <p>category : {{data.item.category}}</p>
+            <p>format : {{data.item.format}}</p>
+            <p>attribute_title : {{data.item.attribute_title}}</p>
+            <p>attribute_utl : {{data.item.attribute_utl}}</p>
+            <p>is_active : {{data.item.is_active}}</p>
+          </b-modal>
+        </template>
+
+        <!-- 編集モーダル -->
+        <b-modal :ref="'edit-modal'+data.item.id" title="編集" size="lg" hide-footer>
+          <div class="modal-body">
+            <p>id : {{data.item.id}}</p>
+
+            <!-- Layers.vue用 -->
+            <template v-if="data.item.name !== undefined">
+              <b-form-group>
+                <label for="layer_name">レイヤー名</label>
+                <b-form-input class="mb-1" v-model="edited.name" :placeholder="`現在は「${data.item.name}」です`" />
+              </b-form-group>
+              <b-form-group>
+                <label for="layer_url">ソースURL</label>
+                <b-form-input class="mb-1" v-model="edited.url" :placeholder="`現在は「${data.item.url}」です`" />
+              </b-form-group>
+              <b-form-group>
+                <label for="layer_description">説明</label>
+                <b-form-input class="mb-1" v-model="edited.description" :placeholder="`現在は「${data.item.description}」です`" />
+              </b-form-group>
+              <b-form-group>
+                <label for="type">{{`タイプ: 現在は「${data.item.type}」です`}}</label>
+                <b-form-select class="mb-1" :plain="false" :options="selectData.types" v-model="edited.type_id"></b-form-select>
+              </b-form-group>
+              <b-form-group>
+                <label for="group">{{`グループ: 現在は「${data.item.group}」です`}}</label>
+                <b-form-select class="mb-1" :plain="false" :options="selectData.groups" v-model="edited.group_id"></b-form-select>
+              </b-form-group>
+              <b-form-group>
+                <label for="category">{{`カテゴリー: 現在は「${data.item.category}」です`}}</label>
+                <b-form-select class="mb-1" :plain="false" :options="selectData.categories" v-model="edited.category_id"></b-form-select>
+              </b-form-group>
+              <b-form-group>
+                <label for="format">{{`フォーマット: 現在は「${data.item.format}」です`}}</label>
+                <b-form-select class="mb-1" :plain="false" :options="selectData.formats" v-model="edited.format_id"></b-form-select>
+              </b-form-group>
+              <b-form-group>
+                <label for="attribute">{{`出典: 現在は「${data.item.attribute_title} - ${data.item.attribute_utl}」です`}}</label>
+                <b-form-select class="mb-1" :plain="false" :options="selectData.attributes" v-model="edited.attribute_id"></b-form-select>
+              </b-form-group>
+              <b-form-group>
+                <label for="is_active">{{`公開/非公開: 現在は「${toVerbalize(data.item.is_active)}」です`}}</label><br>
+                <c-switch class="mx-1" color="primary" defaultChecked variant="3d" label v-bind="labelIcon" v-model="edited.is_active" />
+              </b-form-group>
+            </template>
+
+            <b-form-group class="mb-3" v-if="data.item.name === undefined">
+              <b-input-group>
+                <!-- Types.vue用 -->
+                <template v-if="data.item.type !== undefined && data.item.name === undefined">
+                  <b-form-input v-model="edited.type" :placeholder="`現在は「${data.item.type}」です`" />
+                </template>
+
+                <!-- Groups.vue用 -->
+                <template v-if="data.item.group !== undefined && data.item.name === undefined">
+                  <b-form-input v-model="edited.group" :placeholder="`現在は「${data.item.group}」です`" />
+                </template>
+
+                <!-- Categories.vue用 -->
+                <template v-if="data.item.category !== undefined && data.item.name === undefined">
+                  <b-form-input v-model="edited.category" :placeholder="`現在は「${data.item.category}」です`" />
+                </template>
+
+                <!-- Formats.vue用 -->
+                <template v-if="data.item.format !== undefined && data.item.name === undefined">
+                  <b-form-input v-model="edited.format" :placeholder="`現在は「${data.item.format}」です`" />
+                </template>
+
+                <!-- Attributes.vue用 -->
+                <template v-if="data.item.title !== undefined && data.item.name === undefined">
+                  <b-form-input v-model="edited.title" :placeholder="`現在は「${data.item.title}」です`" />
+                  <b-form-input v-model="edited.url" :placeholder="`現在は「${data.item.url}」です`" />
+                </template>
+
+                <b-input-group-append>
+                  <b-btn :disabled="!edited" @click="edited = {}">Clear</b-btn>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
+          </div>
+
+          <div class="modal-footer">
+            <b-button variant="secondary" data-dismiss="modal" @click="hideModal('edit-modal'+data.item.id)">キャンセル</b-button>
+            <b-button variant="success" @click="$emit('edit-id', {id:data.item.id,edited:edited})">保存</b-button>
+          </div>
+
+        </b-modal>
+
       </template>
     </b-table>
-    <nav>
-      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
-    </nav>
   </b-card>
 </template>
 
 <script>
-/**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1))
-    let temp = array[i]
-    array[i] = array[j]
-    array[j] = temp
-  }
-  return array
-}
+import { Switch as cSwitch } from '@coreui/vue'
 
 export default {
   name: 'c-table',
-  props: {
-    caption: {
-      type: String,
-      default: 'Table'
-    },
-    hover: {
-      type: Boolean,
-      default: false
-    },
-    striped: {
-      type: Boolean,
-      default: false
-    },
-    bordered: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    fixed: {
-      type: Boolean,
-      default: false
-    }
+  components: {
+    cSwitch,
   },
-  data: () => {
+  data() {
     return {
-      items: shuffleArray([
-        {username: 'Samppa Nori', registered: '2012/01/01', role: 'Member', status: 'Active'},
-        {username: 'Estavan Lykos', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-        {username: 'Chetan Mohamed', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-        {username: 'Derick Maximinus', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-        {username: 'Friderik Dávid', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-        {username: 'Yiorgos Avraamu', registered: '2012/01/01', role: 'Member', status: 'Active'},
-        {username: 'Avram Tarasios', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-        {username: 'Quintin Ed', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-        {username: 'Enéas Kwadwo', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-        {username: 'Agapetus Tadeáš', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-        {username: 'Carwyn Fachtna', registered: '2012/01/01', role: 'Member', status: 'Active'},
-        {username: 'Nehemiah Tatius', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-        {username: 'Ebbe Gemariah', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-        {username: 'Eustorgios Amulius', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-        {username: 'Leopold Gáspár', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-        {username: 'Pompeius René', registered: '2012/01/01', role: 'Member', status: 'Active'},
-        {username: 'Paĉjo Jadon', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-        {username: 'Micheal Mercurius', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-        {username: 'Ganesha Dubhghall', registered: '2012/03/01', role: 'Member', status: 'Pending'},
-        {username: 'Hiroto Šimun', registered: '2012/01/21', role: 'Staff', status: 'Active'},
-        {username: 'Vishnu Serghei', registered: '2012/01/01', role: 'Member', status: 'Active'},
-        {username: 'Zbyněk Phoibos', registered: '2012/02/01', role: 'Staff', status: 'Banned'},
-        {username: 'Einar Randall', registered: '2012/02/01', role: 'Admin', status: 'Inactive'},
-        {username: 'Félix Troels', registered: '2012/03/21', role: 'Staff', status: 'Active'},
-        {username: 'Aulus Agmundr', registered: '2012/01/01', role: 'Member', status: 'Pending'}
-      ]),
-      fields: [
-        {key: 'username'},
-        {key: 'registered'},
-        {key: 'role'},
-        {key: 'status'}
-      ],
-      currentPage: 1,
-      perPage: 5,
-      totalRows: 0
+      sortDesc: false,
+      filter: null,
+      edited: {
+        name: null,
+        url: null,
+        description: null,
+        type_id: null,
+        group_id: null,
+        category_id: null,
+        format_id: null,
+        attribute_id: null,
+        is_active: null,
+      },
+      labelIcon: {
+        dataOn: '\u2713',
+        dataOff: '\u2715',
+      },
     }
   },
   methods: {
-    getBadge (status) {
-      return status === 'Active' ? 'success'
-        : status === 'Inactive' ? 'secondary'
-          : status === 'Pending' ? 'warning'
-            : status === 'Banned' ? 'danger' : 'primary'
+    showModal(id, item) {
+      this.$refs[id].show()
+      this.edited.name = item.name
+      this.edited.url = item.url
+      this.edited.description = item.description
+      this.edited.type_id = item.type_id
+      this.edited.group_id = item.group_id
+      this.edited.category_id = item.category_id
+      this.edited.format_id = item.format_id
+      this.edited.attribute_id = item.attribute_id
+      this.edited.is_active = item.is_active
     },
-    getRowCount (items) {
-      return items.length
-    }
-  }
+    hideModal(id) {
+      this.$refs[id].hide()
+    },
+    toVerbalize(bool) {
+      return bool ? '公開中' : '非公開'
+    },
+  },
+  props: {
+    caption: {
+      type: String,
+      default: 'Table',
+    },
+    hover: {
+      type: Boolean,
+      default: false,
+    },
+    striped: {
+      type: Boolean,
+      default: false,
+    },
+    bordered: {
+      type: Boolean,
+      default: false,
+    },
+    small: {
+      type: Boolean,
+      default: false,
+    },
+    fixed: {
+      type: Boolean,
+      default: false,
+    },
+    fields: {
+      type: Array,
+    },
+    items: {
+      type: Array,
+    },
+    sortBy: {
+      type: String,
+    },
+    selectData: {
+      type: Object,
+    },
+  },
 }
 </script>

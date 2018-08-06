@@ -41,6 +41,7 @@ for i in range(ID_START, ID_END+1):
         format_id=random.randint(1, ID_END),
         attribute_id=random.randint(1, ID_END),
         description='hoge' * i,
+        is_active=True if (i % 2 == 0) else False,
         created_at=random_date,
         updated_at=random_date,
     )
