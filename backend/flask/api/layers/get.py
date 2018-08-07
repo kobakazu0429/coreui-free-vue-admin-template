@@ -38,7 +38,7 @@ def get_layer(layer_id, is_all):
                  Category.category,
                  Format.format,
                  Attribute.title.alias('attribute_title'),
-                 Attribute.url.alias('attribute_utl')
+                 Attribute.url.alias('attribute_url')
              )
              .join(Type, on=(Layer.type_id == Type.id))
              .join(Group, on=(Layer.group_id == Group.id))
